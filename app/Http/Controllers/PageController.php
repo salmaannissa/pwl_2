@@ -16,6 +16,14 @@ class PageController extends Controller
         echo "Selamat Datang";
     }
 
+    public function about() {
+        echo "Nama : Salma Annissa Azizi <br> NIM : 2141720137";
+    }
+
+    public function articles($id) {
+        echo 'Halaman artikel dengan ID '; return $id;
+    }
+
     /**
      * Show the form for creating a new resource.
      *

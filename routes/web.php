@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\ControllerPage;
+use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,4 +35,9 @@ Route::get('/articles/{id}', function($id){
 });
 
 //praktikum 2
+
 Route::get('/', [PageController::class, 'index']);
+
+Route::get('/about', [PageController::class, 'about']);
+
+Route::get('/articles/{id}', [PageController::class, 'articles']);
