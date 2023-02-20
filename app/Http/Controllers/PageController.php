@@ -43,6 +43,7 @@ class PageController extends Controller
         </ul>";
     }
 
+    public function 
     /**
      * Show the form for creating a new resource.
      *
