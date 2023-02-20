@@ -49,3 +49,13 @@ Route::get('/articles/{id}', function($id){
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/', [AboutController::class, 'about']);
 Route::get('/articles/{id}', [ArticlesController::class, 'articles']);
+
+//praktikum 3
+
+    Route::get('/home', function () {
+        return 'Selamat Datang guys...';
+    });
+
+    Route::prefix('product')->group(function () {
+        Route::get('/list', [PageController::class, 'product']);
+    });

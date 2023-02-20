@@ -23,6 +23,25 @@ class PageController extends Controller
     public function articles($id) {
         echo 'Halaman artikel dengan ID '; return $id;
     }
+    
+    public function product()
+    {
+        echo " Daftar Produk Unggulan Kami <br>
+        <ul>
+            <li>
+                <a href='https://www.educastudio.com/category/marbel-edu-games'>Product 1</a>
+            </li>
+            <li>
+                <a href='https://www.educastudio.com/category/marbel-and-friends-kids-games'>Product 2</a>
+            </li>
+            <li>
+                <a href='https://www.educastudio.com/category/riri-story-books'>Product 3</a>
+            </li>
+            <li>
+                <a href='https://www.educastudio.com/category/kolak-kids-songs'>Product 4</a>
+            </li>
+        </ul>";
+    }
 
     /**
      * Show the form for creating a new resource.
