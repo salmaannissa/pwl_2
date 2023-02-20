@@ -71,5 +71,11 @@ Route::get('/articles/{id}', [ArticlesController::class, 'articles']);
 
     //no 4
     Route::prefix('program')->group(function () {
-        Route::get('/DaftarProgram', [PageController::class, 'product']);
+        Route::get('/DaftarProgram', [PageController::class, 'program']);
+    });
+
+    //no5
+    Route::get('/TentangKami', function(){
+        echo "Kami adalah mahasiswa Politeknik Negeri Malang yang sedang belajar 
+        <br> Pemrograman Web Lanjut";
     });
