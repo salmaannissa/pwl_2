@@ -79,3 +79,8 @@ Route::get('/articles/{id}', [ArticlesController::class, 'articles']);
         echo "Kami adalah mahasiswa Politeknik Negeri Malang yang sedang belajar 
         <br> Pemrograman Web Lanjut";
     });
+
+    //no6
+    Route::resource('index', ControllerPage::class);
+
+    
