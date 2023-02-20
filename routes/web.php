@@ -32,3 +32,5 @@ Route::get('/articles/{id}', function($id){
     echo 'Halaman artikel dengan ID '; return $id;
 });
 
+//praktikum 2
+Route::get('/', [PageController::class, 'index']);
