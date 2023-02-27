@@ -13,15 +13,9 @@ class ControllerPage extends Controller
      */
     public function index()
     {
-        return 'LAMAN KONTAK KAMI <br>
-        <ul>
-            <li> WHATSAPP : 087839597241 </li>
-            <li> EMAIL : salmaannisaazizi@gmail.com </li>
-        </ul>
-        <label>Kontak</label> <br>
-            <input placeholder="Masukkan kontak">
-            <button>Submit</button>
-        ';
+        return view('contact-us', [
+            'no' => '0878395972512',
+            'email' => 'salmaanna@polinema.ac.id']);
     }
 
     /**

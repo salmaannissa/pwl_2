@@ -3,8 +3,12 @@
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ArticlesController;
 use App\Http\Controllers\ControllerPage;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\PengalamanController;
+use App\Http\Controllers\ProfileContoller;
+use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -81,6 +85,38 @@ Route::get('/articles/{id}', [ArticlesController::class, 'articles']);
     });
 
     //no6
-    Route::resource('index', ControllerPage::class);
+    //Route::resource('index', ControllerPage::class);
 
-    
+    //praktikum 3
+    //Route::get('/hello', function() {
+        //return view('hello', ['name' => 'Andi'])
+        //return View::make('hello', ['name' => 'Mulan']);
+        //return view('blog.hello', ['name' => 'Mulan']);
+    //});
+
+    //Route::get('/hello' ,[WelcomeController::class, 'hello']);
+
+    //praktikum 1 no 1
+    Route::get('/home' ,[WelcomeController::class, 'home']);
+    //praktikum 1 no 2
+    Route::prefix('product')->group(function () {
+        Route::get('/list', [WelcomeController::class, 'product']);
+    });
+    //praktikum 1 no 3
+    Route::get('/berita/{param}' ,[WelcomeController::class, 'news']);
+    //praktikum 1 no 4
+    Route::prefix('program')->group(function () {
+        Route::get('/daftar', [WelcomeController::class, 'program']);
+    }); 
+    //praktikum 1 no 5
+    Route::get('/ttgkami', [WelcomeController::class, 'about']);
+    //praktikum 1 no 6
+    Route::resource('index', ControllerPage::class);
+    //praktikum 2
+    Route::get('/', function(){
+        return view('layouts.template');
+    });
+
+    Route::get('/dashboard', [DashboardController::class, 'index']);
+    Route::get('/profile', [ProfileContoller::class, 'index']);
+    Route::get('/pengalaman', [PengalamanController::class, 'index']);
