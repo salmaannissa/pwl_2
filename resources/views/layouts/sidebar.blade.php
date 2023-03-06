@@ -49,6 +49,14 @@
               <p> Pengalaman Kuliah </p>
             </a>
           </li>
+
+          <li class="nav-header">Data Diri</li>
+          <li class="nav-item">
+            <a href="{{ url('/hobi') }}" class="nav-link">
+              <i class="nav-icon fas fa-ellipsis-h"></i>
+              <p>Hobi</p>
+            </a>
+          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

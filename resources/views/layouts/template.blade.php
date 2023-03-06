@@ -22,7 +22,7 @@
   <!-- Main Sidebar Container -->
   @push('js')
   <script>
-    alert('Selamat Datang')
+    //alert('Selamat Datang')
   </script>
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
