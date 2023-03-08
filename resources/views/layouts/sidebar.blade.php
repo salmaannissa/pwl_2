@@ -57,6 +57,12 @@
               <p>Hobi</p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="{{ url('/keluarga') }}" class="nav-link">
+              <i class="nav-icon fas fa-ellipsis-h"></i>
+              <p>Keluarga</p>
+            </a>
+          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
