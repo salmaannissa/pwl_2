@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('username', 10)->nullable()->unique()->index();
+        Schema::table('users', function(Blueprint $table){
+            $table->string('username',10)->nullable()->unique()->index();
         });
     }
 
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('password_resets');
+        //
     }
 };

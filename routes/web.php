@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ArticlesController;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ControllerPage;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HobiController;
@@ -13,6 +14,7 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\PengalamanController;
 use App\Http\Controllers\ProfileContoller;
 use App\Http\Controllers\WelcomeController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -121,6 +123,10 @@ Route::get('/articles/{id}', [ArticlesController::class, 'articles']);
         return view('layouts.template');
     });
 
+    
+Auth::routes();
+Route::get('/logout', [LoginController::class, 'logout']);
+Route::middleware(['auth'])->group(function(){
     Route::get('/dashboard', [DashboardController::class, 'index']);
     Route::get('/profile', [ProfileContoller::class, 'index']);
     Route::get('/pengalaman', [PengalamanController::class, 'index']);
@@ -128,3 +134,6 @@ Route::get('/articles/{id}', [ArticlesController::class, 'articles']);
     Route::get('/hobi', [HobiController::class, 'index']);
     Route::get('/keluarga', [KeluargaController::class, 'index']);
     Route::get('/matakuliah', [MatkulController::class, 'index']);
+});
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
