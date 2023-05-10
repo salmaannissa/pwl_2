@@ -43,6 +43,7 @@
                                         <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
                                     </form>
                                     <a href="{{url('/mahasiswa/'. $m->id)}}"class="btn btn-sm btn-primary">Show</a>
+                                    <a href="{{ url('/mahasiswa/nilai_mhs/'.$m->id) }}" class="btn btn-sm btn-info">Nilai</a>
                                 </td>
                             </tr>
                         @endforeach

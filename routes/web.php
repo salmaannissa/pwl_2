@@ -10,11 +10,13 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KeluargaController;
 use App\Http\Controllers\KendaraanController;
 use App\Http\Controllers\MahasiswaController;
+use App\Models\MahasiswaModel;
 use App\Http\Controllers\MatkulController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PengalamanController;
 use App\Http\Controllers\ProfileContoller;
 use App\Http\Controllers\WelcomeController;
+use App\Models\Mahasiswa_MataKuliah;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -136,6 +138,12 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/keluarga', [KeluargaController::class, 'index']);
     Route::get('/matakuliah', [MatkulController::class, 'index']);
     Route::resource('/mahasiswa', MahasiswaController::class)->parameter('mahasiswa', 'id');
+    Route::get('mahasiswa/nilai_mhs/{id}',function($id){
+        $mahasiswa = MahasiswaModel::find($id);
+        $khs = Mahasiswa_MataKuliah::where('mhs_id', $id)->get();
+        return view('mahasiswa.nilai_mhs')
+        ->with('mahasiswa', $mahasiswa)->with('khs', $khs);
+    });
 });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
