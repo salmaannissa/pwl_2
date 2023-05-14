@@ -6,24 +6,24 @@
     <!-- Default Box-->
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title"> Data Mata Kuliah Salma Annissa </h3>
+            <h3 class="card-title"> <b> Data Mata Kuliah </b> </h3>
             <br>
         </div>
         <div class="card-body">
             <table class="table">
-                <tr><th>No</th>
-                    <th>Kode Mata Kuliah</th>
-                    <th>Mata Kuliah</th>
-                    <th>Dosen Pengampu</th>
+                <tr><th>#</th>
+                    <th>Nama Mata Kuliah</th>
                     <th>SKS</th>
+                    <th>Jam</th>
+                    <th>Semester</th>
                 </tr>
                 @foreach($mk as $no => $h)
                 <tr>
                     <td>{{$no+1}}</td>
-                    <td>{{$h->kode}}</td>
-                    <td>{{$h->nama}}</td>
-                    <td>{{$h->dosen}}</td>
+                    <td>{{$h->nama_matkul}}</td>
                     <td>{{$h->sks}}</td>
+                    <td>{{$h->jam}}</td>
+                    <td>{{$h->semester}}</td>
                 </tr>
                 @endforeach
             </table>
