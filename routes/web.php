@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ArticlesController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ControllerPage;
@@ -144,6 +145,9 @@ Route::middleware(['auth'])->group(function(){
         return view('mahasiswa.nilai_mhs')
         ->with('mahasiswa', $mahasiswa)->with('khs', $khs);
     });
+    
+    Route::resource('articles', ArticleController::class);
+
 });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
