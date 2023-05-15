@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Membuat Laporan PDF Dengan DOMPDF Laravel</title>
+    </head>
+<body>
+    <style type="text/css">table tr td, table tr th{font-size: 9pt;}</style>
+    <center>
+        <h5>Laporan Artikel</h4>
+    </center>
+    <table class='table table-bordered'>
+        <thead>
+            <tr></tr>
+        </thead>
+        <tbody>
+            <th>No</th>
+            <th>Judul</th>
+            <th>Isi</th>
+            <th>Gambar</th> 
+            @foreach($articles as $a)
+                <tr></tr>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{$a->title}}</td>
+                    <td>{{$a->content}}</td>
+                    <td><img src="{{asset('storage/'.$a->featured_image )}}" width="200px"></td>
+            @endforeach
+        </tbody>
+    </table>
+</body>
+</html>
+
