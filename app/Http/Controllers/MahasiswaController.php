@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Kelas;
 use App\Models\Mahasiswa;
+use App\Models\Mahasiswa_MataKuliah;
 use App\Models\MahasiswaModel;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf as PDF;
 
 class MahasiswaController extends Controller
 {
@@ -14,6 +16,14 @@ class MahasiswaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+     public function cetak_pdf($id){
+        $mhs = MahasiswaModel::find($id);
+        $khs = Mahasiswa_MataKuliah::where('mhs_id', $id)->get();
+        $pdf = PDF::loadView('mahasiswa.cetak_pdf', ['mhs' => $mhs, 'khs' => $khs]);
+        return $pdf->stream();
+    }
+
     public function index()
     {
         $mhs = MahasiswaModel::with('kelas')->get();
@@ -84,8 +94,6 @@ class MahasiswaController extends Controller
     {
         $mahasiswa = MahasiswaModel::where('id',$id)->get();
         return view('mahasiswa.detail', ['Mahasiswa' => $mahasiswa[0]]);
-
-
     }
 
     /**

@@ -1,6 +1,6 @@
 @extends('layouts.template')
 @section('content')
-<div class="container mt-5">
+<div class="container mt-2">
     <div class="row justify-content-center align-items-center">
     <div class="card">
     <div class="card-header text text-md-center">Kartu Hasil Studi(KHS)</div>
@@ -10,6 +10,9 @@
             <li class="list-group-item"><b>Nama : </b>{{$mahasiswa->nama}}</li>
             <li class="list-group-item"><b>Kelas : </b>{{$mahasiswa->kelas->nama_kelas}}</li>
         </ul>
+        <div class="form-group text-right">
+            <a href="{{ url('/mahasiswa/cetak_khs/'.$mahasiswa->id) }}" class="btn btn-sm btn-success">Cetak KHS</a>
+        </div>
         <table class="table table-bordered table-striped mt-2 text-center">
             <thead>
             <tr>
@@ -37,7 +40,7 @@
             </tbody>
         </table>
     </div>
-    <a class="btn btn-success mt-3" href="{{ url('/mahasiswa') }}">Kembali</a>
+    <a class="btn btn-danger mt-3" href="{{ url('/mahasiswa') }}">Kembali</a>
     </div>
     </div>
     </div>

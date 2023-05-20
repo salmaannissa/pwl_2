@@ -145,6 +145,7 @@ Route::middleware(['auth'])->group(function(){
         return view('mahasiswa.nilai_mhs')
         ->with('mahasiswa', $mahasiswa)->with('khs', $khs);
     });
+    Route::get('/mahasiswa/cetak_khs/{id}', [MahasiswaController::class, 'cetak_pdf']);
     
     Route::resource('articles', ArticleController::class);
     
