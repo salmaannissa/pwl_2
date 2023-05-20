@@ -54,7 +54,20 @@ class MahasiswaController extends Controller
             'hp'=>'required|digits_between:6,15'
         ]);
 
-        MahasiswaModel::insert($request->except(['_token']));
+        $image_name = $request->file('foto')->store('images', 'public');
+        
+        MahasiswaModel::create([
+            'nim'=> $request->nim,
+            'nama' => $request->nama,
+            'foto' => $request->foto,
+            'kelas_id' => $request->kelas_id,
+            'jk' => $request->jk,
+            'tempat_lahir' => $request->tempat_lahir,
+            'hp' => $request->hp,
+            'alamat' => $request->alamat,
+        ]);
+
+        //MahasiswaModel::insert($request->except(['_token']));
 
         //$data = MahasiswaModel::create($request->except(['_token']));
         return redirect('mahasiswa')
@@ -107,14 +120,29 @@ class MahasiswaController extends Controller
         $request->validate([
             'nim'=>'required|string|max:10|unique:mahasiswa,nim,'.$id,
             'nama'=>'required|string|max:50',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048', // 'nullable' agar tidak error saat edit data tanpa mengganti '
             'jk'=>'required|in:l,p',
             'tempat_lahir'=>'required|string|max:50',
             'tanggal_lahir'=>'required|date',
             'alamat'=>'required|string|max:255',
-            'hp'=>'required|digits_between:6,15'
+            'hp'=>'required|digits_between:6,15',
+            'foto' => 'required|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
-        $data = MahasiswaModel::where('id', '=', $id)->update($request->except(['_token', '_method']));
+        //$data = MahasiswaModel::where('id', '=', $id)->update($request->except(['_token', '_method']));
+        $image_name = $request->file('foto')->store('images', 'public');
+
+        MahasiswaModel::where('id', $id)->update([
+            'nim' => $request->nim,
+            'nama' => $request->nama,
+            'foto' => $image_name,
+            'kelas_id' => $request->kelas_id,
+            'jk' => $request->jk,
+            'tempat_lahir' => $request->tempat_lahir,
+            'tanggal_lahir' => $request->tanggal_lahir,
+            'hp' => $request->hp,
+            'alamat' => $request->alamat,
+        ]);
         return redirect('mahasiswa')
             ->with('success', 'Mahasiswa Berhasil Ditambahkan');
     }
