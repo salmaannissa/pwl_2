@@ -33,7 +33,7 @@
               <select name="kelas_id" class="form-control @error('kelas_id') 
                 is-invalid @enderror">
                 @foreach($kelas as $kls)
-                <option value="{{$kls->id}}">{{$kls->nama_kelas}}</option>
+                <option value="{{$kls->kelas_id}}" @isset($mhs) @selected($mhs->kelas->kelas_id == $kls->kelas_id) @endisset>{{$kls->nama_kelas}}</option>
                 @endforeach
               </select>
               @error('kelas_id')

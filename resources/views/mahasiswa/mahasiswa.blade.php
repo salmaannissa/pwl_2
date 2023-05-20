@@ -37,13 +37,13 @@
                                 <td>{{$m->hp}}</td>
                                 <td>
                                     <a href="{{url('/mahasiswa/'. $m->id.'/edit')}}" class="btn btn-sm btn-warning">Edit</a>
-                                    <form method="POST" action="{{url('/mahasiswa/'.$m->id)}}">
+                                    <form method="POST" class="d-inline-block" action="{{url('/mahasiswa/'.$m->id)}}">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
                                     </form>
-                                    <a href="{{url('/mahasiswa/'. $m->id)}}"class="btn btn-sm btn-primary">Show</a>
-                                    <a href="{{ url('/mahasiswa/nilai_mhs/'.$m->id) }}" class="btn btn-sm btn-info">Nilai</a>
+                                    <a href="{{url('/mahasiswa/'. $m->id)}}"class="btn btn-sm btn-primary d-inline-block">Show</a>
+                                    <a href="{{ url('/mahasiswa/nilai_mhs/'.$m->id) }}" class="btn btn-sm btn-info d-inline-block">Nilai</a>
                                 </td>
                             </tr>
                         @endforeach
