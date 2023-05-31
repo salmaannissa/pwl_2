@@ -139,6 +139,7 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/keluarga', [KeluargaController::class, 'index']);
     Route::get('/matakuliah', [MatkulController::class, 'index']);
     Route::resource('/mahasiswa', MahasiswaController::class)->parameter('mahasiswa', 'id');
+    Route::post('/mahasiswa/data', [MahasiswaController::class, 'data']);
     Route::get('mahasiswa/nilai_mhs/{id}',function($id){
         $mahasiswa = MahasiswaModel::find($id);
         $khs = Mahasiswa_MataKuliah::where('mhs_id', $id)->get();
