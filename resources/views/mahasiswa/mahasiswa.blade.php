@@ -91,21 +91,129 @@
         </div>
         </form>
     </div>
-    
+    <div class="modal fade" id="modal_show_mahasiswa" style="display: none;" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h4 class="modal-title">Detail Mahasiswa</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">×</span>
+              </button>
+          </div>
+          <div class="modal-body">
+              <div class="form-group row">
+                  <label class="col-sm-2 control-label">NIM</label>
+                  <div class="col-sm-10">
+                      <input type="text" class="form-control" id="show_nim" readonly>
+                  </div>
+              </div>
+              <div class="form-group row">
+                  <label class="col-sm-2 control-label">Nama</label>
+                  <div class="col-sm-10">
+                      <input type="text" class="form-control" id="show_nama" readonly>
+                  </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-2 control-label">Jenis Kelamin</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="show_jk" readonly>
+                </div>
+            </div>
+              <div class="form-group row">
+                  <label class="col-sm-2 control-label">No. HP</label>
+                  <div class="col-sm-10">
+                      <input type="text" class="form-control" id="show_hp" readonly>
+                  </div>
+              </div>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+      </div>
+  </div>
+</div>
 </section>
 
 @endsection
 
 @push('js')
 <script>
+    function showData(element) {
+        // $(element).attr('href');
+        // console.log(element);
+        // console.log($(element));
+        $.ajax({
+            url: '{{  url('mahasiswa') }}'+ '/' + element,
+            method: 'GET',
+            dataType: 'json',
+            success: function(data) {
+            
+            $('#modal_show_mahasiswa').modal('show');
+            
+            $('#show_nim').val(data.nim);
+            $('#show_nama').val(data.nama);
+            $('#show_hp').val(data.hp);
+            },
+            error: function() {
+            alert('Error occurred while retrieving data.');
+            }
+        });
+    }
+
+    function deleteData(element) {
+        if (!confirm("Are you sure?")) {
+            return false;
+        }
+        // console.log("Melakukan anu");
+        $.ajax({
+            url: '{{  url('mahasiswa/delete') }}'+ '/' + element,
+            method: 'POST',
+            dataType: 'json',
+            data: {
+                "_token": "{{ csrf_token() }}",
+            },
+            success: function(data) {
+                alert(data.message);
+                location.reload();
+            },
+            error: function() {
+                alert('Error occurred while deleting data.');
+            }
+        });
+    }
+
     function updateData(th){   
         $('#modal_mahasiswa').modal('show');
         $('#modal_mahasiswa .modal-title').html('Edit Data Mahasiswa');
         $('#modal_mahasiswa #nim').val($(th).data('nim'));
         $('#modal_mahasiswa #nama').val($(th).data('nama'));
+        $('#modal_mahasiswa #jk').val($(th).data('jk'));
         $('#modal_mahasiswa #hp').val($(th).data('hp'));
         $('#modal_mahasiswa #form_mahasiswa').attr('action', $(th).data('url'));
         $('#modal_mahasiswa #form_mahasiswa').append('<input type="hidden" name="_method" value="PUT">');
+    }
+
+    function showData(element) {
+        // $(element).attr('href');
+        // console.log(element);
+        // console.log($(element));
+        $.ajax({
+            url: '{{  url('mahasiswa') }}'+ '/' + element,
+            method: 'GET',
+            dataType: 'json',
+            success: function(data) {
+            
+            $('#modal_show_mahasiswa').modal('show');
+            
+            $('#show_nim').val(data.nim);
+            $('#show_nama').val(data.nama);
+            $('#show_hp').val(data.hp);
+            $('#show_hp').val(data.jk);
+            },
+            error: function() {
+            alert('Error occurred while retrieving data.');
+            }
+        });
     }
 
     $(document).ready(function (){
@@ -128,11 +236,8 @@
                 {data:'id',name:'id', sortable: false, searchable: false,
                     render: function(id, data, row, meta){
                         var btn = `<button data-url="{{ url('/mahasiswa')}}/`+data+`" class="btn btn-xs btn-warning" onclick="updateData(this)" data-id="`+row.id+`" data-nim="`+row.nim+`" data-nama="`+row.nama+`" data-hp="`+row.hp+`"><i class="fa fa-edit"></i> Edit</button>` +
-                                  `<a href="{{ url('/mahasiswa/') }} " class="btn btn-xs btn-info"><i class="fa fa-list"></i> Detail</a>` +
-                                  `<form method="POST" action="{{ url('/mahasiswa/') }}`+data+`">
-                                        @csrf @method('DELETE')
-                                        <button type="submit" class="btn btn-xs btn-danger" onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')"><i class="fa fa-trash"></i> Hapus</button>
-                                    </form>`;
+                                  `<button href="{{ url('/mahasiswa/') }}/`+data+` " onclick="showData(`+data+`)" class="btn btn-xs btn-info"><i class="fa fa-list"></i></button>` + 
+                                  `<button class="btn btn-xs btn-danger" onclick="deleteData(`+data+`)"><i class="fa fa-trash"></i> </button>`;
                         return btn;
                     }
                 }
