@@ -91,12 +91,23 @@
         </div>
         </form>
     </div>
+    
 </section>
 
 @endsection
 
 @push('js')
 <script>
+    function updateData(th){   
+        $('#modal_mahasiswa').modal('show');
+        $('#modal_mahasiswa .modal-title').html('Edit Data Mahasiswa');
+        $('#modal_mahasiswa #nim').val($(th).data('nim'));
+        $('#modal_mahasiswa #nama').val($(th).data('nama'));
+        $('#modal_mahasiswa #hp').val($(th).data('hp'));
+        $('#modal_mahasiswa #form_mahasiswa').attr('action', $(th).data('url'));
+        $('#modal_mahasiswa #form_mahasiswa').append('<input type="hidden" name="_method" value="PUT">');
+    }
+
     $(document).ready(function (){
         var dataMahasiswa = $('#data_mahasiswa').DataTable({
             processing:true,
@@ -115,14 +126,12 @@
                 {data: 'jk', name:'jk', searchable:'false',sortable:'false'},
                 {data:'hp',name:'hp', searchable:'true',sortable:'false'},
                 {data:'id',name:'id', sortable: false, searchable: false,
-                    render: function(data, row){
-                        var btn = `<a href="{{ url('/mahasiswa/')}}+data+/edit" class="btn btn-xs btn-warning"><i class="fa fa-edit"></i> Edit</a> +
-                                  <a href="{{ url('/mahasiswa/') }} " class="btn btn-xs btn-info"><i class="fa fa-list"></i> Detail</a> +
-                                  <form method="POST" action="{{ url('/mahasiswa/') }}+data+">
+                    render: function(id, data, row, meta){
+                        var btn = `<button data-url="{{ url('/mahasiswa')}}/`+data+`" class="btn btn-xs btn-warning" onclick="updateData(this)" data-id="`+row.id+`" data-nim="`+row.nim+`" data-nama="`+row.nama+`" data-hp="`+row.hp+`"><i class="fa fa-edit"></i> Edit</button>` +
+                                  `<a href="{{ url('/mahasiswa/') }} " class="btn btn-xs btn-info"><i class="fa fa-list"></i> Detail</a>` +
+                                  `<form method="POST" action="{{ url('/mahasiswa/') }}`+data+`">
                                         @csrf @method('DELETE')
-                                        <button type="submit" class="btn btn-xs btn-danger" 
-                                        onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')">
-                                        <i class="fa fa-trash"></i> Hapus</button>
+                                        <button type="submit" class="btn btn-xs btn-danger" onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')"><i class="fa fa-trash"></i> Hapus</button>
                                     </form>`;
                         return btn;
                     }
@@ -148,7 +157,10 @@
                         $('.form-message').html('<span class="alert alert-danger" style="width: 100%">' + data.message + '</span>');
                         alert('error');
                     }
-
+                    if(data.modal_close){
+                        $('.form-message').html('');
+                        $('#modal_mahasiswa').modal('hide');
+                    }
                 }
             });
         });

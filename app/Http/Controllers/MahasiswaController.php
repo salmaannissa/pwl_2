@@ -133,7 +133,8 @@ class MahasiswaController extends Controller
      * @param  \App\Models\Mahasiswa  $mahasiswa
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    
+     public function edit($id)
     {
         /*$mahasiswa = MahasiswaModel::find($id);
         return view('mahasiswa.create_mahasiswa')
@@ -154,7 +155,34 @@ class MahasiswaController extends Controller
      * @param  \App\Models\Mahasiswa  $mahasiswa
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id){
+        $rule = [
+            'nim' => 'required|string|max:10|unique:mahasiswa,nim,'.$id,
+            'nama' => 'required|string|max:50',
+            'hp' => 'required|digits_between:6,15',
+        ];
+
+        $validator = Validator::make($request->all(), $rule);
+        if($validator->fails()){
+            return response()->json([
+                'status' => false,
+                'modal_close' => false,
+                'message' => 'Data gagal diedit. ' .$validator->errors()->first(),
+                'data' => $validator->errors()
+            ]);
+        }
+
+        $mhs = MahasiswaModel::where('id', $id)->update($request->except('_token', '_method'));
+
+        return response()->json([
+            'status' => ($mhs),
+            'modal_close' => $mhs,
+            'message' => ($mhs)? 'Data berhasil diedit' : 'Data gagal diedit',
+            'data' => null
+        ]);
+    }
+    
+     public function updateOld(Request $request, $id)
     {
         $request->validate([
             'nim'=>'required|string|max:10|unique:mahasiswa,nim,'.$id,
